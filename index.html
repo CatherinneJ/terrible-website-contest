@@ -111,13 +111,9 @@
             jingle.play().catch((error) => {
               console.error('Unable to play jingle:', error);
             });
-          } else {
-             flyingImg.classList.remove('animate-fly');
-             flyingImgBottom.classList.remove('animate-fly-bottom');
-
-             flyingImg.style.display = 'none';
-             flyingImgBottom.style.display = 'none';
-          }
+              wishInput.disabled = true;
+              buttons.forEach(btn => btn.disabled = true);
+          } 
 
           setRandomBackground();
         });
