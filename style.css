@@ -64,9 +64,19 @@ h1 {
   color: rgb(24, 235, 56);
 }
 
+
 #flying-image {
-  position: absolute;
   top: 30%;
+}
+
+/* show element on the bottom, change % where */
+#flying-image-bottom {    
+  bottom: -15%;
+}
+
+#flying-image,
+#flying-image-bottom {
+  position: absolute;
   left: -120px;
   width: 100px;
   display: none;
@@ -76,24 +86,28 @@ h1 {
 }
 
 @keyframes fly-across {
-  0% {
-    left: -120px;
-  }
-
-  50% {
-    left: calc(100% - 100px);
-  }
-
-  100% {
-    left: -120px;
-  }
+  0% { left: -120px; }
+  50% { left: calc(100% - 100px); }
+  100% { left: -120px; }
 }
 
 .animate-fly {
+  display: block;
   opacity: 1;
   animation: fly-across 5s linear infinite;
 }
 
+@keyframes fly-across-bottom {
+  0% { left: -120px; }
+  50% { left: calc(100% - 100px); }
+  100% { left: -120px; }
+}
+
+.animate-fly-bottom {
+  display: block;
+  opacity: 1;
+  animation: fly-across-bottom 6s linear infinite;
+}
 .footer-section {
   display: flex;
   justify-content: flex-end;

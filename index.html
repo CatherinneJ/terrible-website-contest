@@ -38,6 +38,7 @@
     <audio id="celebrationSound" src="https://www.soundjay.com/human/cheering-01.mp3" preload="auto"></audio>
   </main>
   <img id="flying-image" src="images/fairy.png" alt="Flying Fairy" />
+<img id="flying-image-bottom" src="images/fairy2.png" alt="Flying Fairy Bottom" />
   <footer id="footer">
     <div class="footer-section">
       <ul class="footer-menu">
@@ -66,6 +67,7 @@
       const buttons = document.querySelectorAll('.coin-btn');
       const jingle = document.getElementById('jingle');
       const flyingImg = document.getElementById('flying-image');
+      const flyingImgBottom = document.getElementById('flying-image-bottom');
       const wishInput = document.getElementById('wishInput');
 
       const backgrounds = [
@@ -77,6 +79,7 @@
       function setRandomBackground() {
         const selected = backgrounds[Math.floor(Math.random() * backgrounds.length)];
         document.body.style.backgroundImage = `url('${selected}')`;
+         document.body.style.backgroundSize = 'cover';
       }
 
       buttons.forEach(button => {
@@ -98,16 +101,22 @@
           resultDiv.style.color = 'white';
 
           if (answer === 'Yes') {
-            flyingImg.style.display = 'block';
+        flyingImg.style.display = 'block';
+        flyingImgBottom.style.display = 'block'; 
+
             flyingImg.classList.add('animate-fly');
+            flyingImgBottom.classList.add('animate-fly-bottom');
 
             jingle.currentTime = 0;
             jingle.play().catch((error) => {
               console.error('Unable to play jingle:', error);
             });
           } else {
-            flyingImg.classList.remove('animate-fly');
-            flyingImg.style.display = 'none';
+             flyingImg.classList.remove('animate-fly');
+             flyingImgBottom.classList.remove('animate-fly-bottom');
+
+             flyingImg.style.display = 'none';
+             flyingImgBottom.style.display = 'none';
           }
 
           setRandomBackground();
