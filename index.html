@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <title>Terrible website</title>
+</head>
+
+<body>
+  <header>
+    <h1>Wishing well</h1>
+  </header>
+  <main>
+    <div class="wish-container">
+      <input class="text-type" type="text" id="wishInput" placeholder="Type your wish here and choose coin"><br><br>
+      <img src="images/kettle wish.png" alt="kettle" height="250px">
+    </div>
+
+    <div class="coins-container">
+      <button class="coin-btn" data-id="1">
+        <img src="images/cent.png" alt="Cent">
+        <div class="result" id="result-1"></div>
+      </button>
+
+      <button class="coin-btn" data-id="2">
+        <img src="images/america.png" alt="America">
+        <div class="result" id="result-2"></div>
+      </button>
+      <button class="coin-btn" data-id="3">
+        <img src="images/bitcoin 2.png" alt="bitcoin">
+        <div class="result" id="result-3"></div>
+      </button>
+    </div>
+    <audio id="jingle" src="audio/jingle.mp3"></audio>
+    <audio id="celebrationSound" src="https://www.soundjay.com/human/cheering-01.mp3" preload="auto"></audio>
+  </main>
+  <img id="flying-image" src="images/fairy.png" alt="Flying Fairy" />
+  <footer id="footer">
+    <div class="footer-section">
+      <ul class="footer-menu">
+        <li>FAQ</li>
+        <li>Terms</li>
+        <li>Privacy</li>
+        <li>Cookies</li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <p>&copy; This is Wishing well.</p>
+      </div>
+      <div class="icon-bottom">
+        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com/tvoje-pouzivatelske-meno" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('.coin-btn');
+      const jingle = document.getElementById('jingle');
+      const flyingImg = document.getElementById('flying-image');
+      const wishInput = document.getElementById('wishInput');
+
+      const backgrounds = [
+        'images/fantasy-wood2.png',
+        'images/fantasy-wood.png',
+        'images/fairy-wood.png'
+      ];
+
+      function setRandomBackground() {
+        const selected = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+        document.body.style.backgroundImage = `url('${selected}')`;
+      }
+
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {
+          const wish = wishInput.value.trim();
+          if (wish === '') {
+            alert('Please type your wish first!');
+            return;
+          }
+          const answer = Math.random() < 0.5 ? 'No' : 'Yes';
+          const resultId = button.getAttribute('data-id');
+          const resultDiv = document.getElementById(`result-${resultId}`);
+
+          // Delete all results
+          document.querySelectorAll('.result').forEach(div => div.textContent = '');
+
+          // Show answer under coins
+          resultDiv.textContent = answer;
+          resultDiv.style.color = 'white';
+
+          if (answer === 'Yes') {
+            flyingImg.style.display = 'block';
+            flyingImg.classList.add('animate-fly');
+
+            jingle.currentTime = 0;
+            jingle.play().catch((error) => {
+              console.error('Unable to play jingle:', error);
+            });
+          } else {
+            flyingImg.classList.remove('animate-fly');
+            flyingImg.style.display = 'none';
+          }
+
+          setRandomBackground();
+        });
+      });
+    });
+  </script>
+
+</body>
+
+</html>
